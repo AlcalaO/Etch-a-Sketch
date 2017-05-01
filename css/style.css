@@ -1,0 +1,21 @@
+#pageContainer {
+    width: auto;
+    height: auto;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(16, 70px);
+    width: 80%;
+    height: 80%;
+    margin: 30px auto;
+    padding: 30px;
+}
+
+#cell {
+    
+}
+
+#hoverCell {
+
+}
