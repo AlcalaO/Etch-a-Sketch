@@ -12,10 +12,18 @@
     padding: 30px;
 }
 
-#cell {
-    
+.cell {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 16px;
+    background-color: blue;
 }
 
-#hoverCell {
-
+.hoverCell {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin: 16px;
+    background-color: red;
 }
