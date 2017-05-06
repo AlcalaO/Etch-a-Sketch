@@ -2,25 +2,13 @@ $(document).ready(function () {
     var cells = 16;
     var $divGrid = $("#grid");
     var $buttonRestart = $("#restartButton");
-    // $buttonRestart.bind("click", restart());
+    var cellsSize = calculateCellsSize(cells, $divGrid.width());
 
-    // createGrid(cells, $divGrid.width());
-    for (var i = 0; i < cells; i++) {
-        for (var j = 0; j < cells; j++) {
-            var $divCell = $("<div class='cell'></div>");
-            $divGrid.append($divCell);
-        }
-    }
+    createGrid(cells, cellsSize);
 
-    $divCell.mouseenter(function () {
-        $(this).toggleClass("hoverCell");
+    $(document).on("mouseenter", ".cell", function () {
+        $(this).addClass("hoverCell");
     });
-
-    $(".createdCell").bind('hover', changeClass($(this)));
-
-    funtcion changeClass(element) {
-        element.toggleClass("hoverCell");
-    }
 
     $buttonRestart.click(function restart() {
         $divGrid.empty();
@@ -28,18 +16,21 @@ $(document).ready(function () {
         createGrid(cells,calculateCellsSize(cells, $divGrid.width()));
     });
 
+    // calculate a equal size for each cell
     function calculateCellsSize(cells, gridSize) {
         var cellsSize = gridSize / cells;
-
         return cellsSize;
     }
 
     function createGrid (cells, cellsSize) {
-        $divGrid.css("grid-template-columns", "repeat("+cells+", "+cellsSize+"px)");
+        // create a grid layout for all the cells to enter.
+        $divGrid.css("grid-template-columns", "repeat("+cells+", "
+                +cellsSize+"px)");
+
         var cellMargin = cellsSize * 0.15;
         for (var i = 0; i < cells; i++) {
             for (var j = 0; j < cells; j++) {
-                var $divCreatedCell = $("<div class='cell'></div>");
+                var $divCell = $("<div class='cell'></div>");
                 $divCell.width(cellsSize+"px");
                 $divCell.height(cellsSize+"px");
                 $divGrid.append($divCell);
