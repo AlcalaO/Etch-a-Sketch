@@ -12,15 +12,6 @@ $(document).ready(function () {
         $(this).css("background-color", generateRandomColor());
     });
 
-    function generateRandomColor () {
-        var letters = '0123456789ABCDEF';
-        var color = "#";
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-
     $restartButton.click(function restart() {
         $divGrid.empty();
         cells = prompt("Enter a new size for the grid:");
@@ -28,7 +19,7 @@ $(document).ready(function () {
     });
 
     $clearButton.click(function clear() {
-        $(".hoverCell").toggleClass(".cell");
+        createGrid(cells, cellsSize);
     });
 
     // calculate a equal size for each cell
@@ -52,6 +43,15 @@ $(document).ready(function () {
             }
         }
         $divGrid.css("display", "grid");
+    }
+
+    function generateRandomColor () {
+        var letters = '0123456789ABCDEF';
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
 
 });
