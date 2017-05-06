@@ -1,23 +1,38 @@
 $(document).ready(function () {
     var cells = 16;
     var $divGrid = $("#grid");
-    var $buttonRestart = $("#restartButton");
+    var $restartButton = $("#restartButton");
+    var $clearButton = $("#clearButton");
     var cellsSize = calculateCellsSize(cells, $divGrid.width());
 
     createGrid(cells, cellsSize);
 
     $(document).on("mouseenter", ".cell", function () {
-        $(this).addClass("hoverCell");
+        $(this).addClass("multicolorCell");
+        $(this).css("background-color", generateRandomColor());
     });
 
-    $buttonRestart.click(function restart() {
+    function generateRandomColor () {
+        var letters = '0123456789ABCDEF';
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    $restartButton.click(function restart() {
         $divGrid.empty();
         cells = prompt("Enter a new size for the grid:");
         createGrid(cells,calculateCellsSize(cells, $divGrid.width()));
     });
 
+    $clearButton.click(function clear() {
+        $(".hoverCell").toggleClass(".cell");
+    });
+
     // calculate a equal size for each cell
-    function calculateCellsSize(cells, gridSize) {
+    function calculateCellsSize (cells, gridSize) {
         var cellsSize = gridSize / cells;
         return cellsSize;
     }
