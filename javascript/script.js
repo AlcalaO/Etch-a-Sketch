@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var cells = 16;
+    var rainbowMode = false;
     var $divGrid = $("#grid");
     var $restartButton = $("#restartButton");
     var $clearButton = $("#clearButton");
@@ -9,13 +10,19 @@ $(document).ready(function () {
 
     $(document).on("mouseenter", ".cell", function () {
         $(this).addClass("multicolorCell");
-        $(this).css("background-color", generateRandomColor());
+        if (rainbowMode) {
+            $(this).css("background-color", generateRandomColor());
+        } else {
+            opaqueCell($(this));
+        }
     });
 
     $restartButton.click(function restart() {
         $divGrid.empty();
         cells = prompt("Enter a new size for the grid:");
         createGrid(cells,calculateCellsSize(cells, $divGrid.width()));
+        $divGrid.addClass(".cell");
+        $divGrid.toggleClass(".cell");
     });
 
     $clearButton.click(function clear() {
@@ -24,7 +31,7 @@ $(document).ready(function () {
 
     // calculate a equal size for each cell
     function calculateCellsSize (cells, gridSize) {
-        var cellsSize = gridSize / cells;
+        var cellsSi200ze = gridSize / cells;
         return cellsSize;
     }
 
@@ -34,6 +41,7 @@ $(document).ready(function () {
                 +cellsSize+"px)");
 
         var cellMargin = cellsSize * 0.15;
+        var $oo = $("body");
         for (var i = 0; i < cells; i++) {
             for (var j = 0; j < cells; j++) {
                 var $divCell = $("<div class='cell'></div>");
@@ -52,6 +60,11 @@ $(document).ready(function () {
             color += letters[Math.floor(Math.random() * 16)];
         }
         return color;
+    }
+
+    function opaqueCell (cell) {
+        var opacity = cell.opacity() + 0.1;
+        cell.css("opacity", opacity);
     }
 
 });
