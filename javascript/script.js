@@ -4,16 +4,26 @@ $(document).ready(function () {
     var $divGrid = $("#grid");
     var $restartButton = $("#restartButton");
     var $clearButton = $("#clearButton");
+    var $rainbowButton = $("#rainbowButton");
     var cellsSize = calculateCellsSize(cells, $divGrid.width());
 
     createGrid(cells, cellsSize);
 
     $(document).on("mouseenter", ".cell", function () {
-        $(this).addClass("multicolorCell");
         if (rainbowMode) {
+            $(this).addClass("multicolorCell");
             $(this).css("background-color", generateRandomColor());
         } else {
-            opaqueCell($(this));
+            $(this).addClass("hoverCell");
+            $(this).css("opacity", opacity($(this)));
+        }
+    });
+
+    $rainbowButton.click(function () {
+        if (rainbowMode) {
+            rainbowMode = false;
+        } else {
+            rainbowMode = true;
         }
     });
 
@@ -26,12 +36,13 @@ $(document).ready(function () {
     });
 
     $clearButton.click(function clear() {
+        $divGrid.empty();
         createGrid(cells, cellsSize);
     });
 
     // calculate a equal size for each cell
     function calculateCellsSize (cells, gridSize) {
-        var cellsSi200ze = gridSize / cells;
+        var cellsSize = gridSize / cells;
         return cellsSize;
     }
 
@@ -62,9 +73,10 @@ $(document).ready(function () {
         return color;
     }
 
-    function opaqueCell (cell) {
-        var opacity = cell.opacity() + 0.1;
-        cell.css("opacity", opacity);
+    function opacity (cell) {
+        var cellOpacity = cell.css("opacity");
+        var opa = parseFloat(cellOpacity) + 0.1;
+        return opa;
     }
 
 });
